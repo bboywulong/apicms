@@ -17,8 +17,9 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['babel']
+      test: /\.js$/,
+      loaders: ['babel'],
+      include: path.join(__dirname, 'src')
     },{
       test: /\.css$/,
       loader: ExtractTextPlugin.extract("style-loader", "css-loader")
@@ -49,9 +50,10 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     new HtmlwebpackPlugin({
+      title:'apicms',
       template: path.resolve(ROOT_PATH, 'index.html'),
       filename: 'index.html',
-      chunks: [ 'vendors'],
+      chunks: ['app', 'vendors'],
       inject: 'body'
     }),
     new ExtractTextPlugin("bundle.css")
